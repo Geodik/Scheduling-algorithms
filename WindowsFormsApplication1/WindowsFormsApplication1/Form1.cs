@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SawafOS;
+using RR;
 
 namespace WindowsFormsApplication1
 {
@@ -19,8 +21,29 @@ namespace WindowsFormsApplication1
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            MessageBox.Show("Hello");
-            
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (comboBox1.SelectedItem.ToString() == "Round Robin")
+            {
+                RoundRobin rr = new RoundRobin();
+                rr.doRoundRobin();
+                
+            }
+            else if (comboBox1.SelectedItem.ToString() == "FCFS")
+            {
+                SawafOS.Program program = new SawafOS.Program();
+                program.FCFS();
+                MessageBox.Show("Готово!");
+            }
+            else if (comboBox1.SelectedItem.ToString() == "FCLS")
+            {
+                SawafOS.Program program = new SawafOS.Program();
+                program.FCLS();
+                MessageBox.Show("Готово!");
+            }
         }
     }
 }

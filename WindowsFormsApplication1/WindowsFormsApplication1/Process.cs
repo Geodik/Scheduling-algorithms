@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.IO;
 using System.Threading;
+using System.Windows.Forms;
+using RR;
 
 namespace SawafOS
 {
@@ -29,7 +30,6 @@ namespace SawafOS
 
         }
 
-
         private bool tempDone = false;
 
         public bool getTempDone() { return tempDone; }
@@ -45,8 +45,6 @@ namespace SawafOS
             }
             tempDone = true;
             Console.WriteLine("Process " + processID + " Exiting loop with startPoint: " + getStartPoint());
-
-
 
             if (counter == numberOfWords)
             {
@@ -64,7 +62,6 @@ namespace SawafOS
             }
             fileManager.WriteIntoFile("\n");
         }
-
 
         public void setStartPoint(int startPoint)
         {
@@ -96,10 +93,178 @@ namespace SawafOS
         {
             return processID;
         }
+
         public int getNumberOfWords()
         {
             return this.numOfWordsToType;
         }
 
+    }
+
+    class Program
+    {
+        private FileManager fileManager = new FileManager();
+        private object lockObj = new object();
+
+        public void FCFS()
+        {
+            //Thread firstThread = new Thread(FirstThread);
+            //firstThread.Start();
+            //Thread.Sleep(200);
+
+            //Thread secondThread = new Thread(SecondThread);
+            //secondThread.Start();
+            //Thread.Sleep(200);
+
+            //Thread thirdThread = new Thread(ThirdThread);
+            //thirdThread.Start();
+            //Thread.Sleep(200);
+
+            //Thread fourthThread = new Thread(FourthThread);
+            //fourthThread.Start();
+            //Thread.Sleep(200);
+
+            //Thread fifthThread = new Thread(FifthThread);
+            //fifthThread.Start();
+            //Thread.Sleep(200);
+
+            Task firstThread = new Task(FirstThread);
+            firstThread.Start();
+            firstThread.Wait();
+
+            Task secondThread = new Task(SecondThread);
+            secondThread.Start();
+            secondThread.Wait();
+
+            Task thirdThread = new Task(ThirdThread);
+            thirdThread.Start();
+            thirdThread.Wait();
+
+            Task fourthThread = new Task(FourthThread);
+            fourthThread.Start();
+            fourthThread.Wait();
+
+            Task fifthThread = new Task(FifthThread);
+            fifthThread.Start();
+            fifthThread.Wait();
+
+            Task fibThread = new Task(FibRec);
+            fibThread.Start();
+            fibThread.Wait();
+        }
+
+        public void FCLS()
+        {
+            Task fibThread = new Task(FibRec);
+            fibThread.Start();
+            fibThread.Wait();
+
+            Task fifthThread = new Task(FifthThread);
+            fifthThread.Start();
+            fifthThread.Wait();
+
+            Task fourthThread = new Task(FourthThread);
+            fourthThread.Start();
+            fourthThread.Wait();
+
+            Task thirdThread = new Task(ThirdThread);
+            thirdThread.Start();
+            thirdThread.Wait();
+
+            Task secondThread = new Task(SecondThread);
+            secondThread.Start();
+            secondThread.Wait();
+
+            Task firstThread = new Task(FirstThread);
+            firstThread.Start();
+            firstThread.Wait();
+        }
+
+        private void FirstThread()
+        {
+            lock (lockObj)
+            {
+                fileManager.WriteIntoFile("\n");
+                for (int i = 0; i < 5; i++)
+                {
+                    fileManager.WriteIntoFile(i + " Written by Thread #1");
+                }
+            }
+        }
+
+        private void SecondThread()
+        {
+            lock (lockObj)
+            {
+                fileManager.WriteIntoFile("\n");
+                for (int i = 0; i < 10; i++)
+                {
+                    fileManager.WriteIntoFile(i + " Written by Thread #2");
+                }
+            }
+        }
+
+        private void ThirdThread()
+        {
+            lock (lockObj)
+            {
+                fileManager.WriteIntoFile("\n");
+                for (int i = 0; i < 15; i++)
+                {
+                    fileManager.WriteIntoFile(i + " Written by Thread #3");
+                }
+            }
+        }
+
+        private void FourthThread()
+        {
+            lock (lockObj)
+            {
+                fileManager.WriteIntoFile("\n");
+                for (int i = 0; i < 20; i++)
+                {
+                    fileManager.WriteIntoFile(i + " Written by Thread #4");
+                }
+            }
+        }
+
+        private void FifthThread()
+        {
+            lock (lockObj)
+            {
+                fileManager.WriteIntoFile("\n");
+                for (int i = 0; i < 25; i++)
+                {
+                    fileManager.WriteIntoFile(i + " Written by Thread #5");
+                }
+            }
+        }
+
+        private void FibRec()
+        {
+            int perv = 1, vtor = 1, sum = 0, count = 0;
+            while (10000 >= sum)
+            {
+                sum = perv + vtor;
+                fileManager.WriteIntoFile(sum.ToString());
+
+                perv = vtor;
+                vtor = sum;
+                count++;
+            }
+            fileManager.WriteIntoFile("Count "+count.ToString());
+
+        }
+
+        /*       static void Main(string[] args)
+               {
+            
+                   Program program = new Program();
+                   //program.FCFS();
+                   RoundRobin rr = new RoundRobin();
+                   rr.doRoundRobin();
+                   Console.ReadLine();
+        
+               }*/
     }
 }

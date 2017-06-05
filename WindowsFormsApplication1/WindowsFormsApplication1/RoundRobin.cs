@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
 using SawafOS;
+using WindowsFormsApplication1;
 
 namespace RR
 {
@@ -15,6 +16,7 @@ namespace RR
         private static Process thirdProcess = new Process(3,6);
         private static Process fourthProcess = new Process(4,8);
         private static Process fifthProcess = new Process(5,11);
+        private static Fib sixProcess = new Fib(6,20);
 
 
         private Thread firstThread = new Thread(() => firstProcess.processWriteIntoFile(firstProcess.getNumberOfWords()));
@@ -22,8 +24,7 @@ namespace RR
         private Thread thirdTread = new Thread(() => thirdProcess.processWriteIntoFile(thirdProcess.getNumberOfWords()));
         private Thread fourthThread = new Thread(() => fourthProcess.processWriteIntoFile(fourthProcess.getNumberOfWords()));
         private Thread fifthThread = new Thread(() => fifthProcess.processWriteIntoFile(fifthProcess.getNumberOfWords()));
-
-
+        private Thread sixthThread = new Thread(()=> sixProcess.processWriteIntoFile(sixProcess.getNumberOfWords()));
 
         // Queue of Processes that want to work.
         private Queue<Process> queueOfProcesses = new Queue<Process>();
@@ -31,7 +32,7 @@ namespace RR
         private Queue<Thread> queueOfThreads = new Queue<Thread>();
         // Lock object, something to contest about.
         private object lockObj = new object();
-
+        
 
         private bool ProcessesDone()
         {
@@ -87,6 +88,7 @@ namespace RR
             queueOfProcesses.Enqueue(thirdProcess);
             queueOfProcesses.Enqueue(fourthProcess);
             queueOfProcesses.Enqueue(fifthProcess);
+            queueOfProcesses.Enqueue(sixProcess);
         }
 
         private void EnqueueThreads()
@@ -97,6 +99,7 @@ namespace RR
             queueOfThreads.Enqueue(thirdTread);
             queueOfThreads.Enqueue(fourthThread);
             queueOfThreads.Enqueue(fifthThread);
+            queueOfThreads.Enqueue(sixthThread);
         }
 
         private void SetProcessTimeQuantum(Process working, int time)
