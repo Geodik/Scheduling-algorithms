@@ -106,78 +106,77 @@ namespace SawafOS
         private FileManager fileManager = new FileManager();
         private object lockObj = new object();
 
-        public void FCFS()
+        public int N = 0;
+
+        public void FCFS(ProgressBar bar)
         {
-            //Thread firstThread = new Thread(FirstThread);
-            //firstThread.Start();
-            //Thread.Sleep(200);
-
-            //Thread secondThread = new Thread(SecondThread);
-            //secondThread.Start();
-            //Thread.Sleep(200);
-
-            //Thread thirdThread = new Thread(ThirdThread);
-            //thirdThread.Start();
-            //Thread.Sleep(200);
-
-            //Thread fourthThread = new Thread(FourthThread);
-            //fourthThread.Start();
-            //Thread.Sleep(200);
-
-            //Thread fifthThread = new Thread(FifthThread);
-            //fifthThread.Start();
-            //Thread.Sleep(200);
-
             Task firstThread = new Task(FirstThread);
             firstThread.Start();
             firstThread.Wait();
+            bar.Value = ++N;
+            
 
             Task secondThread = new Task(SecondThread);
             secondThread.Start();
             secondThread.Wait();
+            bar.Value = ++N;
 
             Task thirdThread = new Task(ThirdThread);
             thirdThread.Start();
             thirdThread.Wait();
+            bar.Value = ++N;
 
             Task fourthThread = new Task(FourthThread);
             fourthThread.Start();
             fourthThread.Wait();
+            bar.Value = ++N;
 
             Task fifthThread = new Task(FifthThread);
             fifthThread.Start();
             fifthThread.Wait();
+            bar.Value = ++N;
 
             Task fibThread = new Task(FibRec);
             fibThread.Start();
             fibThread.Wait();
+            bar.Value = ++N;
+
+            MessageBox.Show("Готово!");
         }
 
-        public void FCLS()
+        public void FCLS(ProgressBar bar)
         {
             Task fibThread = new Task(FibRec);
             fibThread.Start();
             fibThread.Wait();
+            bar.Value = ++N;
 
             Task fifthThread = new Task(FifthThread);
             fifthThread.Start();
             fifthThread.Wait();
+            bar.Value = ++N;
 
             Task fourthThread = new Task(FourthThread);
             fourthThread.Start();
             fourthThread.Wait();
+            bar.Value = ++N;
 
             Task thirdThread = new Task(ThirdThread);
             thirdThread.Start();
             thirdThread.Wait();
+            bar.Value = ++N;
 
             Task secondThread = new Task(SecondThread);
             secondThread.Start();
             secondThread.Wait();
+            bar.Value = ++N;
 
             Task firstThread = new Task(FirstThread);
             firstThread.Start();
             firstThread.Wait();
+            bar.Value = ++N;
+
+            MessageBox.Show("Готово!");
         }
 
         private void FirstThread()
@@ -243,6 +242,7 @@ namespace SawafOS
         private void FibRec()
         {
             int perv = 1, vtor = 1, sum = 0, count = 0;
+            fileManager.WriteIntoFile("\n");
             while (10000 >= sum)
             {
                 sum = perv + vtor;

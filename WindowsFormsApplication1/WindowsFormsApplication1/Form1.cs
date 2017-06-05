@@ -35,14 +35,12 @@ namespace WindowsFormsApplication1
             else if (comboBox1.SelectedItem.ToString() == "FCFS")
             {
                 SawafOS.Program program = new SawafOS.Program();
-                program.FCFS();
-                MessageBox.Show("Готово!");
+                program.FCFS(progressBar1);                
             }
             else if (comboBox1.SelectedItem.ToString() == "FCLS")
             {
                 SawafOS.Program program = new SawafOS.Program();
-                program.FCLS();
-                MessageBox.Show("Готово!");
+                program.FCLS(progressBar1);               
             }
         }
     }

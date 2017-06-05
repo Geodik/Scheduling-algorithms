@@ -88,7 +88,7 @@ namespace RR
             queueOfProcesses.Enqueue(thirdProcess);
             queueOfProcesses.Enqueue(fourthProcess);
             queueOfProcesses.Enqueue(fifthProcess);
-            queueOfProcesses.Enqueue(sixProcess);
+//            queueOfProcesses.Enqueue(sixProcess);
         }
 
         private void EnqueueThreads()
@@ -99,7 +99,7 @@ namespace RR
             queueOfThreads.Enqueue(thirdTread);
             queueOfThreads.Enqueue(fourthThread);
             queueOfThreads.Enqueue(fifthThread);
-            queueOfThreads.Enqueue(sixthThread);
+//            queueOfThreads.Enqueue(sixthThread);
         }
 
         private void SetProcessTimeQuantum(Process working, int time)
